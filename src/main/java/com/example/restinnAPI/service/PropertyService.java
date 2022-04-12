@@ -1,5 +1,7 @@
 package com.example.restinnAPI.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,9 @@ public class PropertyService {
 	public PropertyModel createProperty(PropertyModel property) {
 		PropertyModel newPropCreated = propertyDaoObj.insert(property);
 		return newPropCreated;
+	}
+
+	public List<PropertyModel> getAllProperties() {
+		return propertyDaoObj.findAll();
 	}
 }
