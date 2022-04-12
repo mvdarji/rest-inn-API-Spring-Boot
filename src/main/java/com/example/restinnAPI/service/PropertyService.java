@@ -24,13 +24,30 @@ public class PropertyService {
 	}
 
 	// read bestseller properties from DB
-	public List<PropertyModel> getBestsellerProperties() {
+	public List<PropertyModel> getBestsellerProperties(String number) {
+		int limit = -1;
+		if(number == null) {
+			limit = 0;
+		}else {
+			limit = Integer.parseInt(number);
+		}
+		
+		if(limit < 0) {
+			limit = 0;
+		}
+		int counter = 0;
 		List<PropertyModel> bestSellerProps = new ArrayList<PropertyModel>();
 		List<PropertyModel> allProps = propertyDaoObj.findAll();
 
         for (PropertyModel property: allProps) {
             if (property.isBestSeller()) {
+            	if(limit > 0 && counter == limit) {
+            		break;
+            	}
             	bestSellerProps.add(property);
+            	if(limit > 0) {
+            		counter++;
+            	}
             }
         }
         

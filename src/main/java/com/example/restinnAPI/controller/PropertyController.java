@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restinnAPI.model.PropertyModel;
@@ -37,8 +38,8 @@ public class PropertyController {
 	
 	// for reading bestseller properties
 	@GetMapping("/property/bestseller")
-	public ResponseEntity<List<PropertyModel>> getBestsellerProperties(){
-		List<PropertyModel> bestSellerProps = propServiceObj.getBestsellerProperties();
+	public ResponseEntity<List<PropertyModel>> getBestsellerProperties(@RequestParam(name = "limit", required = false) String limit){
+		List<PropertyModel> bestSellerProps = propServiceObj.getBestsellerProperties(limit);
 		if(bestSellerProps == null) {
 			return new ResponseEntity<List<PropertyModel>>(bestSellerProps, HttpStatus.NOT_FOUND);
 		}
