@@ -1,5 +1,6 @@
 package com.example.restinnAPI.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,23 @@ public class PropertyService {
 		return propertyDaoObj.findAll();
 	}
 
+	// read bestseller properties from DB
+	public List<PropertyModel> getBestsellerProperties() {
+		List<PropertyModel> bestSellerProps = new ArrayList<PropertyModel>();
+		List<PropertyModel> allProps = propertyDaoObj.findAll();
+
+        for (PropertyModel property: allProps) {
+            if (property.isBestSeller()) {
+            	bestSellerProps.add(property);
+            }
+        }
+        
+        if(bestSellerProps.isEmpty()) {
+        	return null;
+        }
+		return bestSellerProps;
+	}
+	
 	// read single property from DB
 	public PropertyModel getSingleProperty(String propId) {
 		Optional<PropertyModel> singleProp = propertyDaoObj.findById(propId);
@@ -37,6 +55,7 @@ public class PropertyService {
 		return newPropCreated;
 	}
 
+	// delete single property in DB
 	public void deleteProperty(String propId) {
 		propertyDaoObj.deleteById(propId);
 	}

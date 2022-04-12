@@ -35,6 +35,16 @@ public class PropertyController {
 		return new ResponseEntity<List<PropertyModel>>(allProps, HttpStatus.OK);
 	}
 	
+	// for reading bestseller properties
+	@GetMapping("/property/bestseller")
+	public ResponseEntity<List<PropertyModel>> getBestsellerProperties(){
+		List<PropertyModel> bestSellerProps = propServiceObj.getBestsellerProperties();
+		if(bestSellerProps == null) {
+			return new ResponseEntity<List<PropertyModel>>(bestSellerProps, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<PropertyModel>>(bestSellerProps, HttpStatus.OK);
+	}
+	
 	// for reading single property
 	// @PathVariable: Annotation which indicates that a method parameter should be bound to a URI template variable.
 	@GetMapping("/property/{propId}")
