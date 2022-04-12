@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,5 +54,17 @@ public class PropertyController {
 	public ResponseEntity<PropertyModel> createProperty(@RequestBody PropertyModel property){
 		PropertyModel newProp = propServiceObj.createProperty(property);
 		return new ResponseEntity<PropertyModel>(newProp, HttpStatus.CREATED);
+	}
+	
+	// for deleting specific property
+	// @DeleteMapping handles the HTTP DELETE requests matched with given URI expression.
+	@DeleteMapping("/property/{propId}")
+	public ResponseEntity<String> deleteProperty(@PathVariable String propId){
+		PropertyModel propFromDB = propServiceObj.getSingleProperty(propId);
+		if(propFromDB == null) {
+			return new ResponseEntity<String>("Property ID: " + propId + " not found.", HttpStatus.NOT_FOUND);
+		}
+		propServiceObj.deleteProperty(propId);
+		return new ResponseEntity<String>("Property ID: " + propId + " deleted.", HttpStatus.OK);
 	}
 }

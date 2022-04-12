@@ -36,4 +36,8 @@ public class PropertyService {
 		PropertyModel newPropCreated = propertyDaoObj.insert(property);
 		return newPropCreated;
 	}
+
+	public void deleteProperty(String propId) {
+		propertyDaoObj.deleteById(propId);
+	}
 }
