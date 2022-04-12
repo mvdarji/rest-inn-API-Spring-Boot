@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.restinnAPI.model.PropertyModel;
@@ -17,6 +20,9 @@ public class PropertyService {
 	// dependency injection as per singleton spring design pattern, only one object across the whole application
 	@Autowired
 	PropertyDao propertyDaoObj;	
+	
+	@Autowired
+    private MongoTemplate mongoTemplate;
 
 	// read all properties from DB
 	public List<PropertyModel> getAllProperties() {
@@ -64,6 +70,20 @@ public class PropertyService {
 			return singleProp.get();
 		}
 		return null;
+	}
+	
+	// filter properties according to searchTerm from DB
+	public List<PropertyModel> getPropertiesByTitle(String searchTerm) {
+		Query dbQuery = new Query();
+        // searches in title containing searchTerm (.*searchTerm.*)
+		// i is for case-insensitive search
+		dbQuery.addCriteria(Criteria.where("title").regex(".*" + searchTerm + ".*", "i"));
+		List<PropertyModel> searchResults = mongoTemplate.find(dbQuery, PropertyModel.class);
+		
+		if(searchResults.isEmpty()) {
+			return null;	
+		}		
+		return searchResults;
 	}
 	
 	// create new property in DB

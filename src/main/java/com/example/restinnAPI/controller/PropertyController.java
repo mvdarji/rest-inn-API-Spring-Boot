@@ -58,6 +58,16 @@ public class PropertyController {
 		}
 		return new ResponseEntity<PropertyModel>(singleProp, HttpStatus.OK);
 	}
+	
+	// for filtering properties by title
+	@GetMapping("/property/search")
+	public ResponseEntity<List<PropertyModel>> getPropertiesByTitle(@RequestParam String searchTerm){
+		List<PropertyModel> searchResults = propServiceObj.getPropertiesByTitle(searchTerm);
+		if(searchResults == null) {
+			return new ResponseEntity<List<PropertyModel>>(searchResults, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<PropertyModel>>(searchResults, HttpStatus.OK);
+	}
 
 	// for creating new property
 	// @PostMapping handles the HTTP POST requests matched with given URI expression.
