@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,7 @@ public class PropertyController {
 	}
 	
 	// for reading bestseller properties
+	// @RequestParams extract values from the query string
 	@GetMapping("/property/bestseller")
 	public ResponseEntity<List<PropertyModel>> getBestsellerProperties(@RequestParam(name = "limit", required = false) String limit){
 		List<PropertyModel> bestSellerProps = propServiceObj.getBestsellerProperties(limit);
@@ -65,6 +67,23 @@ public class PropertyController {
 	public ResponseEntity<PropertyModel> createProperty(@RequestBody PropertyModel property){
 		PropertyModel newProp = propServiceObj.createProperty(property);
 		return new ResponseEntity<PropertyModel>(newProp, HttpStatus.CREATED);
+	}
+	
+	// for updating found property or add this new property
+	// @PutMapping handles the HTTP PUT requests matched with given URI expression.
+	@PutMapping(value = "/property/{propId}", consumes = {
+			MediaType.APPLICATION_JSON_VALUE
+	})
+	public ResponseEntity<PropertyModel> updateProperty(@RequestBody PropertyModel prop, @PathVariable String propId){
+		PropertyModel propFromDB = propServiceObj.getSingleProperty(propId);
+		if(propFromDB == null) {
+			PropertyModel newProp = propServiceObj.createProperty(prop);
+			return new ResponseEntity<PropertyModel>(newProp, HttpStatus.CREATED);
+		}else {
+			prop.setId(propId);
+			PropertyModel newProp = propServiceObj.updateProperty(prop);
+			return new ResponseEntity<PropertyModel>(newProp, HttpStatus.OK);
+		}
 	}
 	
 	// for deleting specific property

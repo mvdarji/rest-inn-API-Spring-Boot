@@ -72,6 +72,11 @@ public class PropertyService {
 		return newPropCreated;
 	}
 
+	// update single property in DB
+	public PropertyModel updateProperty(PropertyModel prop) {
+		return propertyDaoObj.save(prop);
+	}
+
 	// delete single property in DB
 	public void deleteProperty(String propId) {
 		propertyDaoObj.deleteById(propId);
