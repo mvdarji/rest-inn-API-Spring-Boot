@@ -47,7 +47,7 @@ public class UserController {
 	
 	// for creating new user
 	// @PostMapping handles the HTTP POST requests matched with given URI expression.
-	@PostMapping( value = "/user", consumes = {
+	@PostMapping( value = {"/user", "/register"}, consumes = {
 			MediaType.APPLICATION_JSON_VALUE
 	})
 	public ResponseEntity<UserModel> createUser(@RequestBody UserModel user){
