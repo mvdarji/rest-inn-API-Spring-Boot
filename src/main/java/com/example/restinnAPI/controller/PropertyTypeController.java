@@ -19,7 +19,7 @@ public class PropertyTypeController {
 	@Autowired
 	private PropertyTypeService propertyTypeServiceObj;
 	
-	// for reading all properties
+	// for reading all property types
 	// @GetMapping handles the HTTP GET requests matched with given URI expression.
 	@GetMapping("/propertyType")
 	public ResponseEntity<List<PropertyTypeModel>> getAllPropTypes(){
@@ -30,7 +30,7 @@ public class PropertyTypeController {
 		return new ResponseEntity<List<PropertyTypeModel>>(allPropTypes, HttpStatus.OK);
 	}
 	
-	// for creating new property
+	// for creating new property type
 	// @PostMapping handles the HTTP POST requests matched with given URI expression.
 	@PostMapping(value = "/propertyType", consumes = {
 			MediaType.APPLICATION_JSON_VALUE
