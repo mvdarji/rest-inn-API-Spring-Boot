@@ -11,7 +11,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.restinnAPI.model.PropertyModel;
+import com.example.restinnAPI.model.PropertyTypeModel;
 import com.example.restinnAPI.repository.PropertyDao;
+import com.example.restinnAPI.repository.PropertyTypeDao;
 
 
 // We mark beans with @Service to indicate that they're holding the business logic
@@ -20,6 +22,9 @@ public class PropertyService {
 	// dependency injection as per singleton spring design pattern, only one object across the whole application
 	@Autowired
 	PropertyDao propertyDaoObj;	
+	
+	@Autowired
+	PropertyTypeDao propertyTypeDaoObj;	
 	
 	@Autowired
     private MongoTemplate mongoTemplate;
@@ -100,5 +105,15 @@ public class PropertyService {
 	// delete single property in DB
 	public void deleteProperty(String propId) {
 		propertyDaoObj.deleteById(propId);
+	}
+
+	// filter properties according to type from DB
+	public List<PropertyModel> getPropertiesByType(String propType) {
+		List<PropertyTypeModel> propTypesList = propertyTypeDaoObj.findByPropType(propType);
+		PropertyTypeModel propTypeObj = new PropertyTypeModel(
+				propTypesList.get(0).getId(),
+				propType
+			);
+		return propertyDaoObj.findByType(propTypeObj);
 	}
 }

@@ -68,6 +68,16 @@ public class PropertyController {
 		}
 		return new ResponseEntity<List<PropertyModel>>(searchResults, HttpStatus.OK);
 	}
+	
+	// for filtering properties by type
+	@GetMapping("/property/type/{propType}")
+	public ResponseEntity<List<PropertyModel>> getPropertiesByType(@PathVariable String propType){	
+		List<PropertyModel> searchResults = propServiceObj.getPropertiesByType(propType);
+		if(searchResults == null) {
+			return new ResponseEntity<List<PropertyModel>>(searchResults, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<PropertyModel>>(searchResults, HttpStatus.OK);
+	}
 
 	// for creating new property
 	// @PostMapping handles the HTTP POST requests matched with given URI expression.
