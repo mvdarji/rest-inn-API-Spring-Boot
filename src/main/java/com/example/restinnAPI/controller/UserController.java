@@ -25,7 +25,7 @@ public class UserController {
 	
 	// for reading all users
 	// @GetMapping handles the HTTP GET requests matched with given URI expression.
-	@GetMapping("/user")
+	@GetMapping("/users")
 	public ResponseEntity<List<UserModel>> getAllUsers(){
 		List<UserModel> allUsers = userServiceObj.getAllUsers();	
 		if(allUsers.isEmpty() || allUsers == null) {
@@ -36,7 +36,7 @@ public class UserController {
 	
 	// for reading single user
 	// @PathVariable: Annotation which indicates that a method parameter should be bound to a URI template variable.
-	@GetMapping("/user/{userId}")
+	@GetMapping("/users/{userId}")
 	public ResponseEntity<UserModel> getSingleUser(@PathVariable String userId){
 	    UserModel singleUser = userServiceObj.getSingleUser(userId);
 	    if(singleUser == null) {
@@ -47,7 +47,7 @@ public class UserController {
 	
 	// for creating new user
 	// @PostMapping handles the HTTP POST requests matched with given URI expression.
-	@PostMapping( value = {"/user", "/register"}, consumes = {
+	@PostMapping( value = {"/users", "/register"}, consumes = {
 			MediaType.APPLICATION_JSON_VALUE
 	})
 	public ResponseEntity<UserModel> createUser(@RequestBody UserModel user){
