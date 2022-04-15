@@ -5,16 +5,16 @@ import org.springframework.data.annotation.Id;
 public class PropertyTypeModel {
 	@Id
 	private String id;
-	private String type;
+	private String propType;
 	
 	public PropertyTypeModel() {
 		super();
 	}
 
-	public PropertyTypeModel(String id, String type) {
+	public PropertyTypeModel(String id, String propType) {
 		super();
 		this.id = id;
-		this.type = type;
+		this.propType = propType;
 	}
 
 	public String getId() {
@@ -25,16 +25,16 @@ public class PropertyTypeModel {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getPropType() {
+		return propType;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setPropType(String propType) {
+		this.propType = propType;
 	}
 
 	@Override
 	public String toString() {
-		return "PropertyTypeModel [id=" + id + ", type=" + type + "]";
-	}	
+		return "PropertyTypeModel [id=" + id + ", propType=" + propType + "]";
+	}		
 }

@@ -12,7 +12,7 @@ public class PropertyModel {
 	private String title;
 	private String description;
 	private Long price;
-	private String type;
+	private PropertyTypeModel type;
 	private List<String> houseRules;	
 	private List<String> amenities;
 	private String location;
@@ -22,7 +22,7 @@ public class PropertyModel {
 		super();
 	}
 
-	public PropertyModel(String id, String image, String title, String description, Long price, String type,
+	public PropertyModel(String id, String image, String title, String description, Long price, PropertyTypeModel type,
 			List<String> houseRules, List<String> amenities, String location, boolean bestSeller) {
 		super();
 		this.id = id;
@@ -77,11 +77,11 @@ public class PropertyModel {
 		this.price = price;
 	}
 
-	public String getType() {
+	public PropertyTypeModel getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(PropertyTypeModel type) {
 		this.type = type;
 	}
 
@@ -120,7 +120,7 @@ public class PropertyModel {
 	@Override
 	public String toString() {
 		return "PropertyModel [id=" + id + ", image=" + image + ", title=" + title + ", description=" + description
-				+ ", price=" + price + ", type=" + type + ", houseRules=" + houseRules + ", amenities=" + amenities
+				+ ", price=" + price + ", type=" + type.toString() + ", houseRules=" + houseRules + ", amenities=" + amenities
 				+ ", location=" + location + ", bestSeller=" + bestSeller + "]";
 	}	
 }
