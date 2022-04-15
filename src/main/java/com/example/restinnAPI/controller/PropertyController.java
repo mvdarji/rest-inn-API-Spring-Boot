@@ -28,7 +28,7 @@ public class PropertyController {
 	
 	// for reading all properties
 	// @GetMapping handles the HTTP GET requests matched with given URI expression.
-	@GetMapping("/property")
+	@GetMapping("/properties")
 	public ResponseEntity<List<PropertyModel>> getAllProperties(){
 		List<PropertyModel> allProps = propServiceObj.getAllProperties();	
 		if(allProps.isEmpty() || allProps == null) {
@@ -39,7 +39,7 @@ public class PropertyController {
 	
 	// for reading bestseller properties
 	// @RequestParams extract values from the query string
-	@GetMapping("/property/bestseller")
+	@GetMapping("/properties/bestseller")
 	public ResponseEntity<List<PropertyModel>> getBestsellerProperties(@RequestParam(name = "limit", required = false) String limit){
 		List<PropertyModel> bestSellerProps = propServiceObj.getBestsellerProperties(limit);
 		if(bestSellerProps == null) {
@@ -50,7 +50,7 @@ public class PropertyController {
 	
 	// for reading single property
 	// @PathVariable: Annotation which indicates that a method parameter should be bound to a URI template variable.
-	@GetMapping("/property/{propId}")
+	@GetMapping("/properties/{propId}")
 	public ResponseEntity<PropertyModel> getSingleProperty(@PathVariable String propId){
 		PropertyModel singleProp = propServiceObj.getSingleProperty(propId);
 		if(singleProp == null) {
@@ -60,7 +60,7 @@ public class PropertyController {
 	}
 	
 	// for filtering properties by title
-	@GetMapping("/property/search")
+	@GetMapping("/properties/search")
 	public ResponseEntity<List<PropertyModel>> getPropertiesByTitle(@RequestParam String searchTerm){
 		List<PropertyModel> searchResults = propServiceObj.getPropertiesByTitle(searchTerm);
 		if(searchResults == null) {
@@ -70,7 +70,7 @@ public class PropertyController {
 	}
 	
 	// for filtering properties by type
-	@GetMapping("/property/type/{propType}")
+	@GetMapping("/properties/type/{propType}")
 	public ResponseEntity<List<PropertyModel>> getPropertiesByType(@PathVariable String propType){	
 		List<PropertyModel> searchResults = propServiceObj.getPropertiesByType(propType);
 		if(searchResults == null) {
@@ -81,7 +81,7 @@ public class PropertyController {
 
 	// for creating new property
 	// @PostMapping handles the HTTP POST requests matched with given URI expression.
-	@PostMapping(value = "/property", consumes = {
+	@PostMapping(value = "/properties", consumes = {
 			MediaType.APPLICATION_JSON_VALUE
 	})
 	public ResponseEntity<PropertyModel> createProperty(@RequestBody PropertyModel property){
@@ -91,7 +91,7 @@ public class PropertyController {
 	
 	// for updating found property or add this new property
 	// @PutMapping handles the HTTP PUT requests matched with given URI expression.
-	@PutMapping(value = "/property/{propId}", consumes = {
+	@PutMapping(value = "/properties/{propId}", consumes = {
 			MediaType.APPLICATION_JSON_VALUE
 	})
 	public ResponseEntity<PropertyModel> updateProperty(@RequestBody PropertyModel prop, @PathVariable String propId){
@@ -108,7 +108,7 @@ public class PropertyController {
 	
 	// for deleting specific property
 	// @DeleteMapping handles the HTTP DELETE requests matched with given URI expression.
-	@DeleteMapping("/property/{propId}")
+	@DeleteMapping("/properties/{propId}")
 	public ResponseEntity<String> deleteProperty(@PathVariable String propId){
 		PropertyModel propFromDB = propServiceObj.getSingleProperty(propId);
 		if(propFromDB == null) {
