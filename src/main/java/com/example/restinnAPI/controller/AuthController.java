@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.restinnAPI.model.UserModel;
 import com.example.restinnAPI.repository.UserDao;
 
-@CrossOrigin(origins = "https://rest-inn-api-mvdarji-spring.herokuapp.com")
+@CrossOrigin(origins = "https://rest-inn-mvdarji.netlify.app/")
 @RestController
 public class AuthController {
 	@Autowired

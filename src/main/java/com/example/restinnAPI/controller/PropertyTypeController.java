@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.restinnAPI.model.PropertyTypeModel;
 import com.example.restinnAPI.service.PropertyTypeService;
 
-@CrossOrigin(origins = "https://rest-inn-api-mvdarji-spring.herokuapp.com")
+@CrossOrigin(origins = "https://rest-inn-mvdarji.netlify.app/")
 @RestController
 public class PropertyTypeController {
 	@Autowired
